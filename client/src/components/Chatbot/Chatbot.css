@@ -1,0 +1,317 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+/* Colors & Variables */
+:root {
+  --primary-color: #80C063;
+  --primary-gradient: linear-gradient(135deg, #80C063 0%, #6dad4e 100%);
+  --secondary-bg: #f3f4f6;
+  --text-white: #ffffff;
+  --text-dark: #333333;
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+  --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+/* Floating Button */
+.chatbot-toggler {
+  position: fixed;
+  bottom: 30px;
+  right: 35px;
+  outline: none;
+  border: none;
+  height: 60px;
+  width: 60px;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--primary-gradient);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 9999;
+  box-shadow: var(--shadow-lg);
+  animation: pulse-green 2s infinite;
+}
+
+@keyframes pulse-green {
+  0% {
+    box-shadow: 0 0 0 0 rgba(128, 192, 99, 0.7);
+  }
+
+  70% {
+    box-shadow: 0 0 0 10px rgba(128, 192, 99, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(128, 192, 99, 0);
+  }
+}
+
+.chatbot-toggler:hover {
+  transform: scale(1.1);
+  animation: none;
+  /* Stop pulsing on hover */
+}
+
+.chatbot-toggler span {
+  color: var(--text-white);
+  position: absolute;
+  font-size: 3rem !important;
+}
+
+.chatbot-toggler span:last-child,
+body.show-chatbot .chatbot-toggler span:first-child {
+  opacity: 1;
+  transform: rotate(0deg) scale(0.5);
+}
+
+body.show-chatbot .chatbot-toggler span:last-child {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+/* Chatbot Window */
+.chatbot {
+  position: fixed;
+  right: 35px;
+  bottom: 100px;
+  width: 420px;
+  background: #fff;
+  border-radius: 20px;
+  /* Rounder corners */
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.5) translateY(20px);
+  transform-origin: bottom right;
+  box-shadow: var(--shadow-lg);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 9999;
+  font-family: 'Poppins', sans-serif;
+}
+
+body.show-chatbot .chatbot {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1) translateY(0);
+}
+
+/* Header */
+.chatbot header {
+  padding: 20px 0;
+  position: relative;
+  text-align: center;
+  color: var(--text-white);
+  background: var(--primary-gradient);
+  box-shadow: var(--shadow-sm);
+}
+
+.chatbot header .header-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.chatbot header .header-content span {
+  font-size: 2rem;
+}
+
+.chatbot header h2 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.chatbot header .close-btn {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  display: none;
+  cursor: pointer;
+  transform: translateY(-50%);
+  font-size: 1.5rem;
+}
+
+/* Chatbox */
+.chatbot .chatbox {
+  overflow-y: auto;
+  height: 450px;
+  /* Taller */
+  padding: 20px 20px 80px;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  scroll-behavior: smooth;
+}
+
+.chatbot :where(.chatbox, textarea)::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chatbot :where(.chatbox, textarea)::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.chatbot :where(.chatbox, textarea)::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 25px;
+}
+
+.chatbox .chat {
+  display: flex;
+  list-style: none;
+  margin-bottom: 15px;
+}
+
+/* Incoming Message (Bot) */
+.chatbox .incoming {
+  justify-content: flex-start;
+  align-items: flex-end;
+  /* Align icon to bottom */
+}
+
+.chatbox .incoming span {
+  width: 35px;
+  height: 35px;
+  color: var(--text-white);
+  cursor: default;
+  text-align: center;
+  line-height: 35px;
+  background: var(--primary-gradient);
+  border-radius: 50%;
+  margin: 0 10px 0 0;
+  font-size: 1.2rem;
+  box-shadow: var(--shadow-sm);
+  flex-shrink: 0;
+}
+
+.chatbox .incoming p {
+  background: var(--secondary-bg);
+  color: var(--text-dark);
+  border-radius: 20px 20px 20px 5px;
+  /* Unique shape */
+  border: 1px solid #e5e7eb;
+}
+
+/* Outgoing Message (User) */
+.chatbox .outgoing {
+  justify-content: flex-end;
+}
+
+.chatbox .outgoing p {
+  background: var(--primary-gradient);
+  color: var(--text-white);
+  border-radius: 20px 20px 5px 20px;
+  /* Unique shape */
+  box-shadow: 0 4px 6px rgba(59, 130, 246, 0.2);
+}
+
+.chatbox .chat p {
+  white-space: pre-wrap;
+  padding: 12px 18px;
+  max-width: 80%;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+  word-wrap: break-word;
+}
+
+/* Error/Thinking States */
+.chatbox .incoming.error p {
+  color: #721c24;
+  background: #f8d7da;
+  border-color: #f5c6cb;
+}
+
+/* Input Area */
+.chatbot .chat-input {
+  display: flex;
+  gap: 10px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: #fff;
+  padding: 15px 20px;
+  border-top: 1px solid #eee;
+  align-items: center;
+}
+
+.chat-input textarea {
+  height: 50px;
+  width: 100%;
+  border: 1px solid #e2e8f0;
+  outline: none;
+  resize: none;
+  max-height: 120px;
+  padding: 12px 15px;
+  font-size: 0.95rem;
+  border-radius: 25px;
+  font-family: inherit;
+  transition: border-color 0.2s;
+  background: #f8fafc;
+}
+
+.chat-input textarea:focus {
+  border-color: var(--primary-color);
+  background: #fff;
+}
+
+.chat-input span {
+  align-self: flex-end;
+  /* Align with bottom if textarea grows */
+  color: var(--primary-color);
+  cursor: pointer;
+  height: 50px;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden;
+  font-size: 1.5rem;
+  transition: all 0.2s;
+  background: transparent;
+  border-radius: 50%;
+}
+
+.chat-input textarea:valid~span {
+  visibility: visible;
+}
+
+.chat-input span:hover {
+  background: #eff6ff;
+  transform: scale(1.1);
+}
+
+/* Responsiveness */
+@media (max-width: 490px) {
+  .chatbot-toggler {
+    right: 20px;
+    bottom: 20px;
+    height: 50px;
+    width: 50px;
+  }
+
+  .chatbot {
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    border-radius: 0;
+    width: 100%;
+  }
+
+  .chatbot .chatbox {
+    height: calc(100% - 130px);
+    padding: 25px 15px;
+  }
+
+  .chatbot .chat-input {
+    padding: 10px 15px;
+    position: fixed;
+    bottom: 0;
+  }
+
+  .chatbot header span {
+    display: block;
+  }
+}

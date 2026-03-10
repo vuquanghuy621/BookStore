@@ -1,0 +1,25 @@
+.recentlyViewed {
+    margin-top: 40px;
+    padding-bottom: 20px;
+}
+
+.title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    border-bottom: 2px solid #539E31;
+    padding-bottom: 8px;
+}
+
+.titleHeading {
+    font-size: 24px;
+    font-weight: 700;
+    color: #333;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.row {
+    margin-top: 16px;
+}
